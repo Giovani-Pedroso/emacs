@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name:	ComponentRN
+# key: ccrn
+# group: react-native
+# --
+import { StyleSheet, Text, View } from 'react-native';
+
+interface IProps {
+
+}
+
+export default function ${1:Component}(props:IProps) {
+  return (
+    <View style={styles.container}>
+      <Text>{"$0"}</Text>
+    </View>
+
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

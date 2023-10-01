@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name:Create-controller
+# key: cont
+# group: express
+# --
+import { Request, Response } from "express";
+
+export class $1Controller {
+  async create(req: Request, res: Response) {
+
+    return res.status(200).json({ message: \"$2\" })
+  }
+}

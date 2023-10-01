@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:ComponentRN
+# key: .gtttttet 
+# group: react-native
+# --
+
+type Props = {};
+
+export default function ${1:Component}(props: Props) {
+  return (
+	<>
+    <div className="">
+      {"$0"}
+    </div>
+ 	</>
+  );
+}
