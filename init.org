@@ -542,7 +542,7 @@ Add the modeline used in the doom emacs
 ** Fonts
 
 #+begin_src emacs-lisp
-    (set-frame-font "Monofur 11" nil t)
+    ;;(set-frame-font "Monofur 11" nil t)
   ;;(set-default-font “Terminus-9”)
 #+end_src
 

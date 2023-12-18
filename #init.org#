@@ -542,7 +542,7 @@ Add the modeline used in the doom emacs
 ** Fonts
 
 #+begin_src emacs-lisp
-    (set-frame-font "Monofur 11" nil t)
+    ;;(set-frame-font "Monofur 11" nil t)
   ;;(set-default-font “Terminus-9”)
 #+end_src
 
@@ -808,37 +808,9 @@ Give completion functionalities to the lsp
 
 Not working 
 
-#+begin_src emacs-lisp
++begin_src emacs-lisp
 (use-package org-roam
-  :ensure t)
-#+end_src
-
-
-**** Org roam Ui
-
-#+begin_src emacs-lisp
-(use-package org-roam-ui
-  :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-#+end_src
-
-**** Org roam
-
-#+begin_src emacs-lisp
-(use-package org-roam-bibtex
-  :after org-roam
-  :config
-  (require 'org-ref))
+:ensure t)
 #+end_src
 
 *** Change the sizes of the headers
@@ -963,6 +935,14 @@ I am using the LSP theia-ide to install it in your machine run the command in yo
     ;;Installs the dap for node applications
     (require 'dap-node)
     (dap-node-setup))
+#+end_src
+
+** Csharp-mode
+
+#+begin_src emacs-lisp
+(use-package csharp-mode
+  :ensure t
+  )
 #+end_src
 
 ** web-mode
