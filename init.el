@@ -84,9 +84,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-	 '("1d5e33500bc9548f800f9e248b57d1b2a9ecde79cb40c0b1398dec51ee820daf" "8d7b028e7b7843ae00498f68fad28f3c6258eda0650fe7e17bfb017d51d0e2a2" "a82ab9f1308b4e10684815b08c9cac6b07d5ccb12491f44a942d845b406b0296" "266ecb1511fa3513ed7992e6cd461756a895dcc5fef2d378f165fed1c894a78c" "76ed126dd3c3b653601ec8447f28d8e71a59be07d010cd96c55794c3008df4d7" "d47f868fd34613bd1fc11721fe055f26fd163426a299d45ce69bef1f109e1e71" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" default))
+   '("1d5e33500bc9548f800f9e248b57d1b2a9ecde79cb40c0b1398dec51ee820daf" "8d7b028e7b7843ae00498f68fad28f3c6258eda0650fe7e17bfb017d51d0e2a2" "a82ab9f1308b4e10684815b08c9cac6b07d5ccb12491f44a942d845b406b0296" "266ecb1511fa3513ed7992e6cd461756a895dcc5fef2d378f165fed1c894a78c" "76ed126dd3c3b653601ec8447f28d8e71a59be07d010cd96c55794c3008df4d7" "d47f868fd34613bd1fc11721fe055f26fd163426a299d45ce69bef1f109e1e71" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" default))
  '(package-selected-packages
-	 '(dotenv-mode format-all rust-mode dockerfile-mode svelte-mode yaml-mode json-mode scss-mode prettier web-mode typescript-mode tide rjsx-mode python-mode org-superstar paredit company-box company dap-mode lsp-treemacs lsp-ui lsp-mode org-roam-bibtex visual-fill-column org-bullets counsel-projectile forge ivy-rich which-key rainbow-delimiters ivy ivyy flycheck helm undo-fu undo-tree evil centaur-tabs dashboard doom-themes doom-modeline all-the-icons neotree auto-complete auto-package-update use-package))
+   '(visual-fill-column org-bullets counsel-projectile forge ivy-rich which-key rainbow-delimiters ivy ivyy flycheck helm undo-fu undo-tree evil centaur-tabs dashboard doom-themes doom-modeline all-the-icons neotree auto-complete auto-package-update use-package))
  '(warning-suppress-log-types '((comp) (comp) (comp)))
  '(warning-suppress-types '((comp) (comp))))
 
@@ -278,42 +278,42 @@
 (global-set-key (kbd "C-h C") #'helpful-command)
 
 ;;Get the a random image to show on the dashboard
-(defun get-random-image()
-  ;;Set the  directory of the images
-  (setq-local directory-images "~/Pictures/Emacs-dash-board/to-show/")
-  ;;Put in a list all images in the directory
-  (setq-local images (directory-files directory-images nil ".png"))
+ (defun get-random-image()
+   ;;Set the  directory of the images
+   (setq-local directory-images "~/Pictures/Emacs-dashboard/to-show/")
+   ;;Put in a list all images in the directory
+   (setq-local images (directory-files directory-images nil ".png"))
 
-  ;;Join the folder's path with the image path
-  ;;and return the full path
-  (concat directory-images
-          ;;get a random image
-          (nth (- (random (length images)) 1) images)
-          ))
+   ;;Join the folder's path with the image path
+   ;;and return the full path
+   (concat directory-images
+           ;;get a random image
+           (nth (- (random (length images)) 1) images)
+           ))
 
-(use-package dashboard
-  :ensure t
-  :init
-  (progn;;This execult commands in the initialization process
-    (setq dashboard-banner-logo-title "Quem desiste não cansa")
-    (setq dashboard-set-init-info nil)
-    (setq dashboard-startup-banner (get-random-image))
-    (setq dashboard-set-heading-icons t)
+ (use-package dashboard
+   :ensure t
+   :init
+ (progn;;This execult commands in the initialization process
+   (setq dashboard-banner-logo-title "Quem desiste não cansa")
+   (setq dashboard-set-init-info nil)
+(setq dashboard-startup-banner (get-random-image))
+   (setq dashboard-set-heading-icons t)
 
-    ;; Content is not centered by default. To center, set
-    ;;This variable to t
-    ;;(setq dashboard-center-content t)
-    (setq dashboard-set-file-icons t)
-    ;;(setq dashboard-footer-messages '("Better than VSCoiso"))
-    (setq dashboard-items '(
-                            ;;(agenda . 4)
-                            ;;(recents  . 6)
-                            (bookmarks . 6)
-                            (projects . 4)
-                            ))
-    )
-  :config
-  (dashboard-setup-startup-hook))
+ ;; Content is not centered by default. To center, set
+ ;;This variable to t
+ ;;(setq dashboard-center-content t)
+   (setq dashboard-set-file-icons t)
+ ;;(setq dashboard-footer-messages '("Better than VSCoiso"))
+   (setq dashboard-items '(
+                         ;;(agenda . 4)
+                           ;;(recents  . 6)
+                           (bookmarks . 6)
+                           (projects . 4)
+                         ))
+   )
+   :config
+   (dashboard-setup-startup-hook))
 
 (use-package lorem-ipsum
   :ensure t
@@ -334,7 +334,7 @@
 (use-package page-break-lines)
 (global-page-break-lines-mode)
 
-(set-frame-font "Monofur 11" nil t)
+;;(set-frame-font "Monofur 11" nil t)
 ;;(set-default-font “Terminus-9”)
 
 ;;  (defun efs/lsp-mode-setup ()
@@ -560,6 +560,12 @@
   :config
   (require 'dap-python))
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
 (use-package rjsx-mode
   :ensure t
   :mode "\\.js\\'")
@@ -689,30 +695,30 @@
   (auto-package-update-at-time "21:00"))
 
 ;;Motion keys
-;;(define-key evil-normal-state-map "e" 'evil-next-visual-line)
-;;(define-key evil-normal-state-map "i" 'evil-previous-visual-line)
-;;(define-key evil-normal-state-map "o" 'evil-forward-char)
-;;(define-key evil-normal-state-map "n" 'evil-backward-char)
-;;
-;;(define-key evil-visual-state-map "e" 'evil-next-line)
-;;(define-key evil-visual-state-map "i" 'evil-previous-line)
-;;(define-key evil-visual-state-map "o" 'evil-forward-char)
-;;(define-key evil-visual-state-map "n" 'evil-backward-char)
-;;
-;;(define-key evil-visual-state-map "y" 'evil-insert)
-;;(define-key evil-visual-state-map "l" 'evil-yank)
-;;(define-key evil-visual-state-map ";" 'evil-open-below )
-;;(define-key evil-visual-state-map ":" 'evil-open-above )
-;;
-;;;;Motion keys
-;;;;Functions keys
-;;(define-key evil-normal-state-map "y" 'evil-insert)
-;;(define-key evil-normal-state-map "l" 'evil-yank)
-;;(define-key evil-normal-state-map ";" 'evil-open-below )
-;;(define-key evil-normal-state-map ":" 'evil-open-above )
-;;
-;;(global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
-;;(global-set-key (kbd "C-c <tab>") 'yas-expand)
+(define-key evil-normal-state-map "n" 'evil-next-visual-line)
+(define-key evil-normal-state-map "e" 'evil-previous-visual-line)
+(define-key evil-normal-state-map "i" 'evil-forward-char)
+(define-key evil-normal-state-map "m" 'evil-backward-char)
+
+(define-key evil-visual-state-map "n" 'evil-next-line)
+(define-key evil-visual-state-map "e" 'evil-previous-line)
+(define-key evil-visual-state-map "i" 'evil-forward-char)
+(define-key evil-visual-state-map "m" 'evil-backward-char)
+
+(define-key evil-visual-state-map "l" 'evil-insert)
+(define-key evil-visual-state-map "y" 'evil-yank)
+(define-key evil-visual-state-map "o" 'evil-open-below )
+(define-key evil-visual-state-map "O" 'evil-open-above )
+
+;;Motion keys
+;;Functions keys
+(define-key evil-normal-state-map "l" 'evil-insert)
+(define-key evil-normal-state-map "y" 'evil-yank)
+(define-key evil-normal-state-map "o" 'evil-open-below )
+(define-key evil-normal-state-map "O" 'evil-open-above )
+
+(global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c <tab>") 'yas-expand)
 
 ;(global-set-key (kbd "C-l") (message "ola"))
 
@@ -733,9 +739,3 @@
 (use-package dotenv-mode
   :ensure t) ; unless installed from a package
 (add-to-list 'auto-mode-alist '("\\.env\\..*\\'" . dotenv-mode))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -5,6 +5,7 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el
 
 
+
 My main goal of this configuration is to turn the emacs into a IDE for working with React, nodeJs and embedded system like stm32 and esp-idf. I made this configuration using the tutorials of the channel [[https://www.youtube.com/c/SystemCrafters][SystemCrafters]]
 
 C-M-\ format the code block
@@ -454,7 +455,7 @@ Change the initial buffer of emacs for a dashboard that shows the folders that y
   ;;Get the a random image to show on the dashboard
   (defun get-random-image()
     ;;Set the  directory of the images
-    (setq-local directory-images "~/Pictures/Emacs-dash-board/to-show/")
+    (setq-local directory-images "~/Pictures/Emacs-dashboard/to-show/")
     ;;Put in a list all images in the directory
     (setq-local images (directory-files directory-images nil ".png"))
 
@@ -468,24 +469,24 @@ Change the initial buffer of emacs for a dashboard that shows the folders that y
   (use-package dashboard
     :ensure t
     :init
-    (progn;;This execult commands in the initialization process
-      (setq dashboard-banner-logo-title "Quem desiste não cansa")
-      (setq dashboard-set-init-info nil)
-      (setq dashboard-startup-banner (get-random-image))
-      (setq dashboard-set-heading-icons t)
+  (progn;;This execult commands in the initialization process
+    (setq dashboard-banner-logo-title "Quem desiste não cansa")
+    (setq dashboard-set-init-info nil)
+ (setq dashboard-startup-banner (get-random-image))
+    (setq dashboard-set-heading-icons t)
 
-      ;; Content is not centered by default. To center, set
-      ;;This variable to t
-      ;;(setq dashboard-center-content t)
-      (setq dashboard-set-file-icons t)
-      ;;(setq dashboard-footer-messages '("Better than VSCoiso"))
-      (setq dashboard-items '(
-                              ;;(agenda . 4)
-                              ;;(recents  . 6)
-                              (bookmarks . 6)
-                              (projects . 4)
-                              ))
-      )
+  ;; Content is not centered by default. To center, set
+  ;;This variable to t
+  ;;(setq dashboard-center-content t)
+    (setq dashboard-set-file-icons t)
+  ;;(setq dashboard-footer-messages '("Better than VSCoiso"))
+    (setq dashboard-items '(
+                          ;;(agenda . 4)
+                            ;;(recents  . 6)
+                            (bookmarks . 6)
+                            (projects . 4)
+                          ))
+    )
     :config
     (dashboard-setup-startup-hook))
 #+end_src
@@ -550,7 +551,7 @@ Add the modeline used in the doom emacs
 
 This is packages are focues in giving the emacs full ide capabilities 
 
-** lsp-mode'
+** lsp-mode
 
 Give to emacs the capability to do syntax check in many programming languages
 
@@ -864,6 +865,17 @@ Not working
     (require 'dap-python))
 #+end_src
 
+*** Pyright
+
+#+begin_src emacs-lisp
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
+#+end_src
+
 ** JS- Not useful since I have the web mode
 *** RJSX
 
@@ -1083,30 +1095,30 @@ This package add snippets to the emacs for more info access the [[https://github
 
 #+begin_src emacs-lisp
   ;;Motion keys
-;;(define-key evil-normal-state-map "e" 'evil-next-visual-line)
-;;(define-key evil-normal-state-map "i" 'evil-previous-visual-line)
-;;(define-key evil-normal-state-map "o" 'evil-forward-char)
-;;(define-key evil-normal-state-map "n" 'evil-backward-char)
-;;
-;;(define-key evil-visual-state-map "e" 'evil-next-line)
-;;(define-key evil-visual-state-map "i" 'evil-previous-line)
-;;(define-key evil-visual-state-map "o" 'evil-forward-char)
-;;(define-key evil-visual-state-map "n" 'evil-backward-char)
-;;
-;;(define-key evil-visual-state-map "y" 'evil-insert)
-;;(define-key evil-visual-state-map "l" 'evil-yank)
-;;(define-key evil-visual-state-map ";" 'evil-open-below )
-;;(define-key evil-visual-state-map ":" 'evil-open-above )
-;;
-;;;;Motion keys
-;;;;Functions keys
-;;(define-key evil-normal-state-map "y" 'evil-insert)
-;;(define-key evil-normal-state-map "l" 'evil-yank)
-;;(define-key evil-normal-state-map ";" 'evil-open-below )
-;;(define-key evil-normal-state-map ":" 'evil-open-above )
-;;
-;;(global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
-;;(global-set-key (kbd "C-c <tab>") 'yas-expand)
+(define-key evil-normal-state-map "n" 'evil-next-visual-line)
+(define-key evil-normal-state-map "e" 'evil-previous-visual-line)
+(define-key evil-normal-state-map "i" 'evil-forward-char)
+(define-key evil-normal-state-map "m" 'evil-backward-char)
+
+(define-key evil-visual-state-map "n" 'evil-next-line)
+(define-key evil-visual-state-map "e" 'evil-previous-line)
+(define-key evil-visual-state-map "i" 'evil-forward-char)
+(define-key evil-visual-state-map "m" 'evil-backward-char)
+
+(define-key evil-visual-state-map "l" 'evil-insert)
+(define-key evil-visual-state-map "y" 'evil-yank)
+(define-key evil-visual-state-map "o" 'evil-open-below )
+(define-key evil-visual-state-map "O" 'evil-open-above )
+
+;;Motion keys
+;;Functions keys
+(define-key evil-normal-state-map "l" 'evil-insert)
+(define-key evil-normal-state-map "y" 'evil-yank)
+(define-key evil-normal-state-map "o" 'evil-open-below )
+(define-key evil-normal-state-map "O" 'evil-open-above )
+
+(global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c <tab>") 'yas-expand)
 #+end_src
 
 ** org-babel-tange
