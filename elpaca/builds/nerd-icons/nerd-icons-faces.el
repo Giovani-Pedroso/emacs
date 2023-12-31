@@ -1,0 +1,1 @@
+/home/giovani/.emacs.d/elpaca/repos/nerd-icons/nerd-icons-faces.el

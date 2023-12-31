@@ -1,0 +1,1 @@
+/home/giovani/.emacs.d/elpaca/repos/json-mode/json-mode.el

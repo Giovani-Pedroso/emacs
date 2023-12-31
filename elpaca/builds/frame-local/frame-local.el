@@ -1,0 +1,1 @@
+/home/giovani/.emacs.d/elpaca/repos/frame-local/frame-local.el

@@ -1,0 +1,1 @@
+/home/giovani/.emacs.d/elpaca/repos/scss-mode/scss-mode.el

@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/.config/i3/" "~/" "~/.config/nvim/")
+("~/.emacs.d/" "~/codes/advent_of_code_2023/" "~/.config/i3/" "~/" "~/.config/nvim/" "~/aur/eww/")

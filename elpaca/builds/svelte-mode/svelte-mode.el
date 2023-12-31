@@ -1,0 +1,1 @@
+/home/giovani/.emacs.d/elpaca/repos/svelte-mode/svelte-mode.el
