@@ -4,8 +4,6 @@
 #+LANGUAGE:  en
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el
 
-
-
 My main goal of this configuration is to turn the emacs into a IDE for working with React, nodeJs and embedded system like stm32 and esp-idf. I made this configuration using the tutorials of the channel [[https://www.youtube.com/c/SystemCrafters][SystemCrafters]]
 
 C-M-\ format the code block

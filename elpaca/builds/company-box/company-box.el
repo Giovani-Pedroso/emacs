@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/elpaca/repos/company-box/company-box.el

@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/elpaca/repos/yaml-mode/yaml-mode.el

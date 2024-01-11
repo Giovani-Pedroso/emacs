@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/elpaca/repos/python-mode/python-mode.el

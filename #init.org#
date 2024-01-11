@@ -8,10 +8,7 @@
 
 My main goal of this configuration is to turn the emacs into a IDE for working with React, nodeJs and embedded system like stm32 and esp-idf. I made this configuration using the tutorials of the channel [[https://www.youtube.com/c/SystemCrafters][SystemCrafters]]
 
-Some useful commands:
-
-+ C-M-\ format the code block
-+ C-x C-e Eval a block of code
+C-M-\ format the code block
 
 * Basic
 
@@ -58,7 +55,6 @@ These settings do not  need any package installed, they just change basic behavi
   (dolist (mode '(org-mode-hook
                   vterm-mode-hook
                   term-mode-hook
-                  neotree-mode-hook
                   shell-mode-hook
                   treemacs-mode-hook
                   eshell-mode-hook))
@@ -82,17 +78,11 @@ These settings do not  need any package installed, they just change basic behavi
   (setq backup-directory-alist `(("." . "~/.saves")))
 #+end_src
 
-** Elpaca Package manager
- 
-#+begin_src emacs-lisp
-
-#+end_src
-
 ** Packages config
 
 Configure the origins on the packages and installs the use-package, this package is a better way to install package that the vanilla emacs package manager
 
-+begin_src emacs-lisp
+#+begin_src emacs-lisp
   ;;Verify and initialize the package.el
   (require 'package)
   ;;Define the repos
@@ -136,9 +126,9 @@ I just copy and paste this part
 
 Here is the installation and configuration of packages (code created by community) that give the emacs more functionality
 
-** evil
+** Evil
 
-Vim keybinds for emacs
+Vim emulator for emacs
 
 #+begin_src emacs-lisp
   (use-package evil
@@ -153,11 +143,9 @@ Vim keybinds for emacs
 Allow to comment or uncomment lines using a simple keybind
 
 #+begin_src emacs-lisp
-  (use-package evil-nerd-commenter
-    :config
-    (global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
-    )
-    #+end_src
+  (use-package evil-nerd-commenter)
+  (global-set-key (kbd "C-c ;") 'evilnc-comment-or-uncomment-lines)
+  #+end_src
 
 ** undo-fo and undo tree
 
@@ -167,12 +155,14 @@ Give Undo functions to evil
 #+begin_src emacs-lisp
   (use-package undo-fu)
   (use-package undo-tree
-    :config
-    (undo-tree-mode)
+        :config
+        (undo-tree-mode)
     )
+
+  ;;Create a 
     #+end_src
 
-** rainbow mode
+** Rainbow mode
 
 This package add the functionality to see colors in the buffer #0000ff
 
@@ -190,7 +180,7 @@ This package add the functionality to see colors in the buffer #0000ff
   (add-hook 'css-mode-hook 'rainbow-mode)
 #+end_src
 
-** which key
+** Which key
 
 autocomplete for the shortcut keys
 
@@ -205,9 +195,7 @@ autocomplete for the shortcut keys
 
 ** Auto-complete
 
-This was enter in conflicty with the company package
-
-+begin_src emacs-lisp
+#+begin_src emacs-lisp
   (use-package auto-complete
     :ensure t
     :init
@@ -259,29 +247,6 @@ Add the capability to check code syntaxes
   (use-package flycheck
     :ensure t
     :init (global-flycheck-mode))
-#+end_src
-
-** Focus
-
-Focus on the pharse or block of code that the cursor are, to enable use: M-x focus-mode
-
-#+begin_src emacs-lisp
-  (use-package focus
-  :ensure t
-    )
-    #+end_src
-
-** Aggressive indent
-
-It will keep your code idented no matter if you want or not
-
-#+begin_src emacs-lisp
-  (use-package aggressive-indent
-    :ensure t
-    :init
-    (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-    ;(add-hook 'css-mode-hook #'aggressive-indent-mode)
-    )
 #+end_src
 
 ** Helm - OFF
@@ -391,7 +356,7 @@ Add information to the buffer as the file size and the permissions
 
 ** Rainbow delimiter
 
-[{( colorfull
+[( colorfull
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
@@ -482,7 +447,7 @@ A better way to see documentation that the emacs original option
   (global-set-key (kbd "C-h C") #'helpful-command)
 #+end_src
 
-** Dashboard
+** Dash Board
 
 Change the initial buffer of emacs for a dashboard that shows the folders that you bookmark, the recent files, etc...
 
@@ -534,8 +499,183 @@ Change the initial buffer of emacs for a dashboard that shows the folders that y
     )
 #+end_src
 
-** Org
+* Appearance
 
+Packages to change the appearance  of emacs
+
+** All the icons
+
+Add fonts with icons that will the use for other packages
+
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
+
+** Doom Themes
+
+Add the themes used in the doom emacs
+
+#+begin_src emacs-lisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    (load-theme 'doom-tomorrow-night  t))
+#+end_src
+
+** Doom modeline
+
+Add the modeline used in the doom emacs
+
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1))
+#+end_src
+
+** Page Breaking
+
+#+begin_src emacs-lisp
+  (use-package page-break-lines)
+  (global-page-break-lines-mode)
+#+end_src
+
+** Fonts
+
+#+begin_src emacs-lisp
+    ;;(set-frame-font "Monofur 11" nil t)
+  ;;(set-default-font “Terminus-9”)
+#+end_src
+
+* Programming
+
+This is packages are focues in giving the emacs full ide capabilities 
+
+** lsp-mode
+
+Give to emacs the capability to do syntax check in many programming languages
+
+#+begin_src emacs-lisp
+  ;;  (defun efs/lsp-mode-setup ()
+  ;;    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  ;;    (lsp-headerline-breadcrumb-mode))
+
+  (use-package lsp-mode
+    :ensure t
+    :commands
+    ;;Activate the package when this functions are called
+    (lsp lsp-deferred)
+    :hook
+    (lsp-mode . efs/lsp-mode-setup)
+    ;;Init lsp for the modes:
+    (c-mode . lsp-deferred)
+    (c++-mode . lsp-deferred)
+    (python-mode . lsp-deferred)
+    (rust-mode . lsp-deferred)
+    (web-mode . lsp-deferred)
+    ;;(typescript-mode . lsp-deferred)
+    (css-mode . lsp-deferred)
+    (scss-mode . lsp-deferred)
+    (svelte-mode . lsp-deferred)
+    (dockerfile-mode . lsp-deferred)
+    (yaml-mode . lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+    :config
+    (setq lsp-log-io nil);;don't log everthing = speed
+    ;;Sometimes the lsp stop for no reason
+    ;;this will restart it
+    (setq lsp-restart 'auto-restart)
+    ;;Give the presscription of
+    ;;the keys pressed using the
+    ;;which-key packge
+    (lsp-enable-which-key-integration t))
+
+  ;;Avoid the lsp breaks the emacs
+  (setq gc-cons-threshold 10000000)
+  (setq read-process-output-max (* 1024 1024))
+
+#+end_src
+
+*** lsp-ui
+
+This is a package that give a little ui to the lsp
+
+#+begin_src emacs-lisp
+  (use-package lsp-ui
+    :ensure t
+    :config
+    (setq lsp-ui-sideline-show-diagnostics t)
+    (setq lsp-ui-sideline-show-hover t)
+    (setq lsp-ui-sideline-show-code-actions t)
+    :hook (lsp-mode . lsp-ui-mode))
+#+end_src
+
+*** lsp-treeemacs
+
+#+begin_src emacs-lisp
+  (use-package lsp-treemacs
+    :after lsp)
+#+end_src
+
+** dap-mode ( Debug Adapter Protocol)
+
+This extension allow use to use external programs to debug your code like lsp
+
+#+begin_src emacs-lisp
+  (use-package dap-mode) 
+#+end_src
+
+** Company-mode
+
+Give completion functionalities to the lsp
+
+#+begin_src emacs-lisp
+  (use-package company
+    :after
+    ;;Will run afther the lsp-mode
+    lsp-mode
+    :ensure t
+    :hook
+    (lsp-mode . company-mode)
+    :init
+    (add-hook 'after-init-hook 'global-company-mode)
+
+    :bind
+    (:map company-active-map
+          ("<tab>" . company-complete-selection))
+    (:map lsp-mode-map
+          ("<tab>" . company-indent-or-complete-common))
+
+    :config
+    (global-company-mode t)
+    (setq company-idle-delay 0.0
+          company-minimum-prefix-lengh 1)
+    )
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+#+end_src
+
+** Elisp
+
+*** ParaEdit
+
+#+begin_src emacs-lisp
+  (use-package paredit
+    :ensure t)
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+#+end_src
+
+#+RESULTS:
+| enable-paredit-mode |
+** Org
 *** Basic Config
 
 #+begin_src emacs-lisp
@@ -615,10 +755,10 @@ Change the initial buffer of emacs for a dashboard that shows the folders that y
   ;; Automatically tangle our Emacs.org config file when we save it
   (defun efs/org-babel-tangle-config ()
     (when (string-equal (file-name-directory (buffer-file-name))
-			(expand-file-name user-emacs-directory))
+                        (expand-file-name user-emacs-directory))
       ;; Dynamic scoping to the rescue
       (let ((org-confirm-babel-evaluate nil))
-	(org-babel-tangle))))
+        (org-babel-tangle))))
 
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
 
@@ -626,7 +766,6 @@ Change the initial buffer of emacs for a dashboard that shows the folders that y
     (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols));
     (lsp-headerline-breadcrumb-mode))
 
-  
 
   ;;(defun efs/org-babel-tangle-config ()
   ;;  (when (string-equal (file-name-directory (buffer-file-name))
@@ -675,144 +814,43 @@ Not working
 :ensure t)
 #+end_src
 
-* Appearance
+*** Change the sizes of the headers
 
-Packages to change the appearance  of emacs
-
-** All the icons
-
-Add fonts with icons that will the use for other packages
 
 #+begin_src emacs-lisp
-  (use-package all-the-icons
-    :ensure t)
+  ;;   Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.4)
+                  (org-level-2 . 1.3)
+                  (org-level-3 . 1.2)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Monospace" :weight 'regular :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch)
 #+end_src
 
-** Doom Themes
-
-Add the themes used in the doom emacs
+*** Add the markdown to the org export
 
 #+begin_src emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    (load-theme 'doom-tomorrow-night  t))
+(require 'ox-md)
 #+end_src
 
-** Doom modeline
-
-Add the modeline used in the doom emacs
-
-#+begin_src emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
-#+end_src
-
-** Page Breaking
-
-#+begin_src emacs-lisp
-  (use-package page-break-lines)
-  (global-page-break-lines-mode)
-#+end_src
-
-** Fonts
-
-#+begin_src emacs-lisp
-    ;;(set-frame-font "Monofur 11" nil t)
-  ;;(set-default-font “Terminus-9”)
-#+end_src
-
-* Programming
-** LSP
-
-This package give to emacs full IDE funtionalities, as go to definitions, refactor the code, etc.. you maybe want to change the lsp to lsp-deferred  
-
-#+begin_src emacs-lisp
-  ;; This is the header breacrumb, It shows the path of the file on top of the screen
- (defun efs/lsp-mode-setup ()
-   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-   (lsp-headerline-breadcrumb-mode))
-
-  (use-package lsp-mode
-    :init
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-    (setq lsp-keymap-prefix "C-c l")
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-          (lsp-mode . efs/lsp-mode-setup )
-           (web-mode . lsp-deferred)
-           (python-mode . lsp-deferred))
-    (web-mode . lsp-deferred)
-    (typescript-mode . lsp-deferred)
-    ;; if you want which-key integration
-    (lsp-mode . lsp-enable-which-key-integration))
-   
-#+end_src
-
-*** lsp-ui
-
-#+begin_src emacs-lisp
-  (use-package lsp-ui
-    :ensure t
-    :config
-    (setq lsp-ui-sideline-show-diagnostics t)
-    (setq lsp-ui-sideline-show-hover t)
-    (setq lsp-ui-sideline-show-code-actions t)
-    :hook (lsp-mode . lsp-ui-mode)
-    :custom
-    (lsp-ui-doc-position 'bottom)
-    )
-#+end_src
-
-*** lsp-treeemacs
-
-#+begin_src emacs-lisp
-  (use-package lsp-treemacs
-    :after lsp)
-#+end_src
-
-** Company-mode
-
-Give completion functionalities to the lsp
-
-#+begin_src emacs-lisp
-    (use-package company
-      :after
-      ;;Will run afther the lsp-mode
-      lsp-mode
-      :ensure t
-      :hook
-      (lsp-mode . company-mode)
-      :init
-      (add-hook 'after-init-hook 'global-company-mode)
-
- ;    :bind
-    ;; It will use tab to select the entry
-   ;;   (:map company-active-map
-  ;;          ("<tab>" . company-complete-selection))
- ;   (:map lsp-mode-map
- ;         ("<tab>" . company-indent-or-complete-common))
-
-    :custom
-    (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0))
-    (use-package company-box
-      :hook (company-mode . company-box-mode))
-#+end_src
-
-
-** Languages Modes
-**** Typescript
-
-+begin_src emacs-lisp
-  (use-package typescript-mode
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp)
-  :config
-  (setq typescript-indent-level 2))
-#+End_src
-
-**** Python
+** Python
+*** Python mode
 
 #+begin_src emacs-lisp
   (use-package python-mode
@@ -827,7 +865,7 @@ Give completion functionalities to the lsp
     (require 'dap-python))
 #+end_src
 
-***** Pyright
+*** Pyright
 
 #+begin_src emacs-lisp
 (use-package lsp-pyright
@@ -838,9 +876,80 @@ Give completion functionalities to the lsp
 
 #+end_src
 
-**** Webmode
+** JS- Not useful since I have the web mode
+*** RJSX
 
-This is a super set of modes that works for js, ts, jsx, tsx
+#+begin_src emacs-lisp
+  (use-package rjsx-mode
+    :ensure t
+    :mode "\\.js\\'")
+#+end_src
+
+*** Tide
+
+#+begin_src emacs-lisp
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
+
+                                          ;typescripte config
+                                          ;
+                                          ;(require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+
+  ;; enable typescript - tslint checker
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  (use-package tide
+    :ensure t
+    :after (rjsx-mode company flycheck)
+    :hook (rjsx-mode . setup-tide-mode))
+#+end_src
+
+** Typescript
+
+I am using the LSP theia-ide to install it in your machine run the command in your terminal:
+
+#+begin_src shell
+  npm i -g typescript-language-server; npm i -g typescript
+#+end_src
+
+#+begin_src emacs-lisp
+
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook
+    ;;Start the lsp when the enter in the type script mode
+    (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2)
+    ;;Installs the dap for node applications
+    (require 'dap-node)
+    (dap-node-setup))
+#+end_src
+
+** web-mode
 
 #+begin_src emacs-lisp
   (setq-default tab-width 2)
@@ -859,10 +968,10 @@ This is a super set of modes that works for js, ts, jsx, tsx
     )
   (use-package web-mode
     :ensure t
-    :mode (
+    :mode (;;("\\.js\\'" . web-mode)
            ("\\.jsx\\'" . web-mode)
            ("\\.js\\'" . web-mode)
-           ("\\.ts\\'" . web-mode)
+           ;;("\\.ts\\'" . web-mode)
            ("\\.tsx\\'" . web-mode)
            ("\\.svelte\\'" . web-mode)
            ;;Was confiliting with lsp
@@ -871,6 +980,64 @@ This is a super set of modes that works for js, ts, jsx, tsx
     :commands web-mode
     :hook (web-mode . luke/webmode-hook)
     )
+#+end_src
+
+*** Prettier
+
+Package for formating the webmode
+
+#+begin_src emacs-lisp
+  (use-package prettier
+    :ensure t
+    :hook
+    ((mhtml-mode json-mode css-mode ts-mode scss-mode rjsx-mode js2-mode web-mode) . prettier-mode))
+#+end_src
+
+** CSS/SCSS-mode
+
+#+begin_src emacs-lisp
+  (use-package css-mode
+    :mode "\\.css\\'")
+
+  (use-package scss-mode
+    :mode "\\.scss\\'")
+#+end_src
+
+** JSON-mode
+
+#+begin_src emacs-lisp
+  ;; json-mode
+  (use-package json-mode
+    :ensure t)
+#+end_src
+
+** yalm-mode
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    )
+#+end_src 
+
+** svelte-mode
+
+#+begin_src emacs-lisp
+  (use-package svelte-mode
+  :ensure t
+    )
+#+end_src
+
+** Dockerfile-mode
+
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode)
+#+end_src
+
+** Rust-mode
+
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :ensure t)
 #+end_src
 
 ** format-all

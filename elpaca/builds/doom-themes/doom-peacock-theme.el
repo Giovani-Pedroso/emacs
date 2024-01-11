@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/elpaca/repos/themes/themes/doom-peacock-theme.el

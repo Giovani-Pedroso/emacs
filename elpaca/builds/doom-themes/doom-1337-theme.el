@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/elpaca/repos/themes/themes/doom-1337-theme.el

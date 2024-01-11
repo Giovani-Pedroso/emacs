@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/codes/advent_of_code_2023/" "~/.config/i3/" "~/" "~/.config/nvim/" "~/aur/eww/")
+("~/.emacs.d/" "~/codes/clinica/bot_agenda/" "~/codes/advent_of_code/" "~/codes/csharp/derek-banas/" "~/codes/csharp/hello_world/" "~/codes/python/gallery-dl/" "~/.config/i3/" "~/" "~/.config/nvim/" "~/aur/eww/")

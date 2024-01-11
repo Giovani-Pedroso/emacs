@@ -633,7 +633,7 @@ Give completion functionalities to the lsp
 #+begin_src emacs-lisp
   (use-package company
     :after
-    ;;Will run afther the lsp-mode
+    ;;will run afther the lsp-mode
     lsp-mode
     :ensure t
     :hook
