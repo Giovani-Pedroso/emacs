@@ -7,6 +7,7 @@
 - [[#todo][TODO]]
 - [[#dependecies][Dependecies]]
   - [[#lsp-bridge][Lsp-bridge]]
+- [[#emacsclient][emacsclient]]
 - [[#basic-keybind-to-edit-the-orgmode][Basic keybind to edit the orgmode]]
 - [[#basic-configurations][Basic configurations]]
   - [[#use-package-package-manager][Use-package (Package manager)]]
@@ -70,6 +71,14 @@ Then clone the git repositori for the package in my case I cloned in a folder ca
 
 #+begin_src shell
 git clone https://github.com/manateelazycat/lsp-bridge.git ~/aur/lsp-bridge
+#+end_src
+
+* emacsclient
+
+to open the emacs using the emacsclient use the commad bellow this will start the emacs in the dashboard
+
+#+begin_src sh
+emacsclient -c -a 'emacs' -e '(switch-to-buffer "*dashboard*")'
 #+end_src
 
 * Basic keybind to edit the orgmode
@@ -1240,18 +1249,21 @@ This package add snippets to the emacs for more info access the [[https://github
 *** Typescript mode- Not in use, I'm using web mode insted
 
 
-#+begin_src emacs-lisp
++begin_src emacs-lisp
 
-(use-package typescript-mode
-:mode "\\.ts\\'"
-:hook
-;;Start the lsp when the enter in the type script mode
-(typescript-mode . lsp-deferred)
-:config
-(setq typescript-indent-level 2)
-;;Installs the dap for node applications
-(require 'dap-node)
-(dap-node-setup))
+  (use-package typescript-mode
+  :mode (
+           ("\\.ts\\'" . typescript-mode)
+           ("\\.tsx\\'" . typescript-mode)
+  )
+  :hook
+  ;;Start the lsp when the enter in the type script mode
+  (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2)
+  ;;Installs the dap for node applications
+  (require 'dap-node)
+  (dap-node-setup))
 #+end_src
 
 *** Web mode - mode for html, ts, tsx, js, svelte, etc
@@ -1276,8 +1288,7 @@ This package add snippets to the emacs for more info access the [[https://github
     :mode (;;("\\.js\\'" . web-mode)
            ("\\.jsx\\'" . web-mode)
            ("\\.js\\'" . web-mode)
-           ;;("\\.ts\\'" . web-mode)
-           ;;("\\.tsx\\'" . web-mode)
+           ("\\.tsx\\'" . web-mode)
            ("\\.svelte\\'" . web-mode)
            ;;Was confiliting with lsp
            ;;("\\.css\\'" . web-mode)

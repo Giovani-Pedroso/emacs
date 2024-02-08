@@ -4,3 +4,7 @@ auto-save-list/
 .extension/
 transient/
 /projectile-bookmarks.eld
+straight/
+history/
+url/
+history.el

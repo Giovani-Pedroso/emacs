@@ -1,1 +1,0 @@
-/home/giovani/.emacs.d/straight/repos/evil/evil-vars.el

@@ -692,17 +692,6 @@ completion-category-overrides '((file (styles partial-completion)))))
   :ensure t
   )
 
-(use-package typescript-mode
-:mode "\\.ts\\'"
-:hook
-;;Start the lsp when the enter in the type script mode
-(typescript-mode . lsp-deferred)
-:config
-(setq typescript-indent-level 2)
-;;Installs the dap for node applications
-(require 'dap-node)
-(dap-node-setup))
-
 (setq-default tab-width 2)
 (setq indent-tabs-mode nil)
 (defun luke/webmode-hook ()
@@ -722,8 +711,7 @@ completion-category-overrides '((file (styles partial-completion)))))
   :mode (;;("\\.js\\'" . web-mode)
          ("\\.jsx\\'" . web-mode)
          ("\\.js\\'" . web-mode)
-         ;;("\\.ts\\'" . web-mode)
-         ;;("\\.tsx\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode)
          ("\\.svelte\\'" . web-mode)
          ;;Was confiliting with lsp
          ;;("\\.css\\'" . web-mode)
